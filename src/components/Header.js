@@ -71,6 +71,11 @@ const HeaderLeft = styled.div`
 const HeaderRight = styled.div`
     flex: .3;
     display: flex;
+    align-items: center;
+
+    > .MuiSvgIcon-root {
+        margin: 0 20px 0 auto;
+    }
 `;
 const HeaderAvatar = styled(Avatar)`
     cursor: pointer;
