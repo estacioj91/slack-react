@@ -1,9 +1,32 @@
 import React from 'react';
 import styled from "styled-components";
+import { db } from '../firebase.js'
+import { collection,  addDoc} from "firebase/firestore";
+import {useCollection} from 'react-firebase-hooks/firestore';
 
-const SidebarOption = ({Icon, title}) => {
+const SidebarOption = ({Icon, title, addChannelOption}) => {
+    const [channels, loading, error] = useCollection(collection(db, "channels")); 
+    
+    const addChannel  = async () => {
+        const channelName = prompt("Enter channel name");
+        const rand = Math.floor(Math.random() * 100000);
+        const date = new Date();
+
+        if(channelName){
+            await addDoc(collection(db, "channels"), {
+                name: channelName,
+                id: rand,
+                timestamp: date,
+            });
+        }
+    }
+
+    const selectChannel = () => {
+
+    }
+
     return (
-        <SidebarOptionContainer>
+        <SidebarOptionContainer onClick={addChannelOption ? addChannel : selectChannel}>
             {Icon && <Icon fontSize='small' style={{padding: 10}}/>}
             {Icon? (
                 <h3>{title}</h3>
