@@ -5,16 +5,19 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { useSelector } from 'react-redux';
 import {selectRoomId} from '../features/appSlice';
 import ChatInput from "./ChatInput.js"
-function Chat() {
-    const roomId = useSelector(selectRoomId)
+import { db } from '../firebase.js'
+import { collection} from "firebase/firestore";
+import {useCollection} from 'react-firebase-hooks/firestore';
 
+function Chat() {
+    const roomId = useSelector(selectRoomId);
     return(
         <ChatContainer>
             <>
             <Header>
                 <HeaderLeft>
                     <h4>
-                        <strong>#Room</strong>
+                        <strong>#Room {`${roomId}`}</strong>
                     </h4>
                     <StarBorderOutlinedIcon/>
                 </HeaderLeft>
@@ -60,7 +63,7 @@ const HeaderLeft = styled.div`
         text-transform: lowercase;
     }
 
-    > h4 > .MuisSvgIcon-root {
+    > h4 > .MuiSvgIcon-root {
         margin-left: 20px;
         font-size: 18px;
     }
@@ -70,11 +73,11 @@ const HeaderRight = styled.div`
     > p {
         display: flex;
         align-items: center;
-        font-size: 14px
+        font-size: 14px;
     }
 
-    > p > .MuisSvgIcon-root {
-        margin-right: 5px !important;
+    > p > .MuiSvgIcon-root {
+        margin-right: 8px !important;
         font-size: 16px;
     }
 `

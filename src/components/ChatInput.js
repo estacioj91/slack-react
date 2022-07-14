@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
+import { db } from '../firebase.js'
+import { collection, addDoc, FieldValue, getDoc, doc} from "firebase/firestore";
+import {useCollection} from 'react-firebase-hooks/firestore';
 
-function ChatInput(channelName, channelId) {
-    const sendMessage = e => {
+function ChatInput({channelName, channelId}) {
+    const inputRef = useRef(null);
+
+    const sendMessage = async (e) =>  {
         e.preventDefault();
+        if(!channelId){ return false;}
         
+        const date = new Date();
+        const docRef = await addDoc(
+            collection(db, "channels", channelId, "messages"),
+            {
+                message: inputRef.current.value,
+                timestamp: date,
+                user: "John Estacio",
+                userImage: 'https://media-exp2.licdn.com/dms/image/C5603AQHVtJLYJQWX4w/profile-displayphoto-shrink_800_800/0/1595821325239?e=1663200000&v=beta&t=cL6VwY8xwiZwLE3B-sVltQ2Te_vR5aJOUopP1lEhDW8'
+            }
+            );
+        console.log("Document written with ID: ", docRef.id);
     }
+
     return (
         <ChatInputContainer>
             <form>
-                <input placeholder={`Message #room`} type="text" />
+                <input ref={inputRef} placeholder={`Message #room`} type="text" />
                 <Button hidden type="submit" onClick={sendMessage}>
                     SEND
                 </Button>
