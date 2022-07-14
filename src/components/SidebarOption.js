@@ -1,10 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { db } from '../firebase.js'
+import { enterRoom } from '../features/appSlice.js';
 import { collection,  addDoc} from "firebase/firestore";
 
-const SidebarOption = ({Icon, title, addChannelOption}) => {
-    
+const SidebarOption = ({Icon, title, addChannelOption, id}) => {
+    const dispatch = useDispatch();
+
     const addChannel  = async () => {
         const channelName = prompt("Enter channel name");
         const rand = Math.floor(Math.random() * 100000);
@@ -19,12 +22,16 @@ const SidebarOption = ({Icon, title, addChannelOption}) => {
         }
     }
 
-    const selectChannel = () => {
-
+    const selectChannel = (event) => {
+        if(id) {
+            dispatch(enterRoom({
+                roomId: event.target.id
+            }));
+        }
     }
 
     return (
-        <SidebarOptionContainer onClick={addChannelOption ? addChannel : selectChannel}>
+        <SidebarOptionContainer onClick={addChannelOption ? addChannel : selectChannel} id={id}>
             {Icon && <Icon fontSize='small' style={{padding: 10}}/>}
             {Icon? (
                 <h3>{title}</h3>
