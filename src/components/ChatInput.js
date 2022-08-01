@@ -3,9 +3,11 @@ import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import { db } from '../firebase.js'
 import { collection, addDoc, FieldValue, getDoc, doc} from "firebase/firestore";
-import {useCollection} from 'react-firebase-hooks/firestore';
+import {useAuthState} from 'react-firebase-hooks/auth';
+import { auth } from '../firebase';
 
 function ChatInput({channelName, channelId, chatRef}) {
+    const [user, loading]= useAuthState(auth);
     const inputRef = useRef(null);
     const sendMessage = async (e) =>  {
         e.preventDefault();
@@ -20,8 +22,8 @@ function ChatInput({channelName, channelId, chatRef}) {
                 id: rand,
                 message: inputRef.current.value,
                 timestamp: date,
-                user: "John Estacio",
-                userImage: 'https://media-exp2.licdn.com/dms/image/C5603AQHVtJLYJQWX4w/profile-displayphoto-shrink_800_800/0/1595821325239?e=1663200000&v=beta&t=cL6VwY8xwiZwLE3B-sVltQ2Te_vR5aJOUopP1lEhDW8'
+                user: user.displayName,
+                userImage: user.photoURL
             }
             );
         chatRef.current.scrollIntoView({
