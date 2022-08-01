@@ -18,7 +18,7 @@ function Chat() {
     
     useEffect(() => {
         if(chatRef !== null) {
-            chatRef.current.scrollIntoView({
+            chatRef.current?.scrollIntoView({
                 behavior: "smooth",
                 block: "nearest",
                 inline: "start"
@@ -28,47 +28,50 @@ function Chat() {
 
     return(
         <ChatContainer>
-            <>
-            <Header>
-                <HeaderLeft>
-                    <h4>
-                        <strong>#Room {`${roomDetails?.data().name}`}</strong>
-                    </h4>
-                    <StarBorderOutlinedIcon/>
-                </HeaderLeft>
-                <HeaderRight>
-                    <p>
-                        <InfoOutlinedIcon/> Details
-                    </p>
-                </HeaderRight>
-            </Header>
-            <ChatMessages>
-                {roomMessages?.docs.map((item) => {
-                    return item.data();
-                }).sort((b,a) => {
-                    return new Date(b.timestamp.seconds) - new Date(a.timestamp.seconds);
-                }).map((item) => {
-                    const {message, timestamp, user, userImage} = item;
-                    return (
-                        <Message
-                            key={item.id}
-                            message={message}    
-                            timestamp={timestamp}
-                            user={user}
-                            userImage={userImage}
-                        >
-                        </Message>
-                    )
-                })}
-                <ChatBottom ref={chatRef}></ChatBottom>
-            </ChatMessages>
-
-            <ChatInput 
-                channelName={roomDetails?.data().name}
-                channelId={roomId}
-                chatRef={chatRef}
-            />
-            </>
+            {roomDetails && roomMessages && (
+                <>
+                    <Header>
+                        <HeaderLeft>
+                            <h4>
+                                <strong>#Room {`${roomDetails?.data().name}`}</strong>
+                            </h4>
+                            <StarBorderOutlinedIcon/>
+                        </HeaderLeft>
+                        <HeaderRight>
+                            <p>
+                                <InfoOutlinedIcon/> Details
+                            </p>
+                        </HeaderRight>
+                    </Header>
+                    <ChatMessages>
+                        {roomMessages?.docs.map((item) => {
+                            return item.data();
+                        }).sort((b,a) => {
+                            return new Date(b.timestamp.seconds) - new Date(a.timestamp.seconds);
+                        }).map((item) => {
+                            const {message, timestamp, user, userImage} = item;
+                            return (
+                                <Message
+                                    key={item.id}
+                                    message={message}    
+                                    timestamp={timestamp}
+                                    user={user}
+                                    userImage={userImage}
+                                >
+                                </Message>
+                            )
+                        })}
+                        <ChatBottom ref={chatRef}></ChatBottom>
+                    </ChatMessages>
+        
+                    <ChatInput 
+                        channelName={roomDetails?.data().name}
+                        channelId={roomId}
+                        chatRef={chatRef}
+                    />
+                </>
+            )}
+            
         </ChatContainer>
     )
 }
@@ -121,5 +124,5 @@ const ChatMessages = styled.div`
 `;
 
 const ChatBottom = styled.div`
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 `
