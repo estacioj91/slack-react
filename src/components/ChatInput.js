@@ -7,7 +7,6 @@ import {useCollection} from 'react-firebase-hooks/firestore';
 
 function ChatInput({channelName, channelId}) {
     const inputRef = useRef(null);
-
     const sendMessage = async (e) =>  {
         e.preventDefault();
         if(!channelId){ return false;}
@@ -28,7 +27,7 @@ function ChatInput({channelName, channelId}) {
     return (
         <ChatInputContainer>
             <form>
-                <input ref={inputRef} placeholder={`Message #room`} type="text" />
+                <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" />
                 <Button hidden type="submit" onClick={sendMessage}>
                     SEND
                 </Button>

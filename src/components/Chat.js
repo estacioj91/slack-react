@@ -6,18 +6,21 @@ import { useSelector } from 'react-redux';
 import {selectRoomId} from '../features/appSlice';
 import ChatInput from "./ChatInput.js"
 import { db } from '../firebase.js'
-import { collection} from "firebase/firestore";
-import {useCollection} from 'react-firebase-hooks/firestore';
+import { collection, doc} from "firebase/firestore";
+import {useCollection, useDocument} from 'react-firebase-hooks/firestore';
 
 function Chat() {
     const roomId = useSelector(selectRoomId);
+    const [roomDetails, loading, error] = useDocument(roomId && doc(db, "channels", roomId));
+    console.log(roomDetails?.data())
+    const [roomMessages] = useCollection(roomId && collection(db, "channels", roomId, "messages"));
     return(
         <ChatContainer>
             <>
             <Header>
                 <HeaderLeft>
                     <h4>
-                        <strong>#Room {`${roomId}`}</strong>
+                        <strong>#Room {`${roomDetails?.data().name}`}</strong>
                     </h4>
                     <StarBorderOutlinedIcon/>
                 </HeaderLeft>
@@ -32,6 +35,7 @@ function Chat() {
             </ChatMessages>
 
             <ChatInput 
+                channelName={roomDetails?.data().name}
                 channelId={roomId}
             />
             </>
