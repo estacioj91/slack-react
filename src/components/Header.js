@@ -71,6 +71,12 @@ const HeaderLeft = styled.div`
         margin-left: auto;
         margin-right: 30px;
     }
+    @media only screen and (max-width: 600px) {
+        > .MuiSvgIcon-root {
+            font-size: 18px;
+            margin-left: 18px;
+        } 
+    }
 `;
 
 const HeaderRight = styled.div`

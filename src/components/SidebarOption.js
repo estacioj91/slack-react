@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { db } from '../firebase.js'
@@ -7,6 +7,7 @@ import { collection,  addDoc} from "firebase/firestore";
 
 const SidebarOption = ({Icon, title, addChannelOption, id}) => {
     const dispatch = useDispatch();
+    const channel = useRef(null);
 
     const addChannel  = async () => {
         const channelName = prompt("Enter channel name");
@@ -22,16 +23,25 @@ const SidebarOption = ({Icon, title, addChannelOption, id}) => {
         }
     }
 
-    const selectChannel = (event) => {
-        if(id) {
-            dispatch(enterRoom({
-                roomId: event.target.id
-            }));
-        }
+    const selectChannel = (channel) => {
+        dispatch(enterRoom({
+            roomId: channel.current.id
+        }));
     }
+    useEffect(() => {
+        channel.current?.addEventListener('click', function(e){
+            for(let i = 0; i < e.path.length; i++){
+                if(e.path[i].id){
+                    selectChannel(channel);
+                    break;
+                }
+            }
+        })
+    },[channel])
 
     return (
-        <SidebarOptionContainer onClick={addChannelOption ? addChannel : selectChannel} id={id}>
+        <SidebarOptionContainer ref={channel} id={id} onClick={addChannelOption ? addChannel : function(){}}>
+
             {Icon && <Icon fontSize='small' style={{padding: 10}}/>}
             {Icon? (
                 <h3>{title}</h3>
@@ -64,6 +74,16 @@ const SidebarOptionContainer = styled.div`
 
     > h3 > span {
         padding: 15px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        > h3 {
+            font-size: 12px;
+        }
+
+        > .MuiSvgIcon-root {
+            font-size: 14px;
+        }
     }
 `;
 

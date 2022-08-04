@@ -26,6 +26,17 @@ const MessageContainer = styled.div`
         height: 50px;
         border-radius: 8px;
     }
+
+    @media only screen and (max-width: 600px) {
+        padding: 10px;
+        > img {
+            height: 30px;
+        }
+    }
+
+    @media only screen and (max-width: 420px) {
+        align-items: flex-start;
+    }
 `
 const MessageInfo = styled.div`
     padding-left: 10px;
@@ -34,5 +45,23 @@ const MessageInfo = styled.div`
         font-weight: 300;
         margin-left: 4px;
         font-size: 10px;
+    }
+    @media only screen and (max-width: 600px) {
+        > h4  {
+            font-size: 12px;
+        }
+        > p {
+            font-size: 10px;
+        }
+        > h4 > span {
+            font-size: 8px;
+        }
+    }
+
+    @media only screen and (max-width: 420px) {
+        > h4 > span {
+            display: block;
+            margin: 2px 0 2px 0;
+        }
     }
 `

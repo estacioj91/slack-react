@@ -67,6 +67,10 @@ const SidebarContainer = styled.div`
         margin-bottom: 10px;
         border: 1px solid #49274b;
     }
+
+    @media only screen and (max-width: 600px) {
+        padding-right: 5px;
+    }
 `;
 
 const SidebarHeader = styled.div`
@@ -80,6 +84,13 @@ const SidebarHeader = styled.div`
         font-size: 18px;
         background-color: white;
         border-radius: 999px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        > .MuiSvgIcon-root {
+            font-size: 10px;
+            margin-left: 10px;
+        }
     }
 `;
 
@@ -103,5 +114,19 @@ const SidebarInfo = styled.div`
         margin-top: 1px;
         margin-right: 2px;
         color: green;
+    }
+
+    @media only screen and (max-width: 600px) {
+        > h2 {
+            font-size: 10px
+        }
+
+        > h3 {
+        font-size: 10px;
+        }
+
+        > h3 > .MuiSvgIcon-root {
+            font-size: 11px;
+        }
     }
 `;

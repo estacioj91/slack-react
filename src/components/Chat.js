@@ -82,6 +82,7 @@ const ChatContainer = styled.div`
     flex-grow: 1;
     overflow-y: scroll;
     margin-top: 60px;
+    
 `
 const Header = styled.div`
     display: flex;
@@ -104,6 +105,18 @@ const HeaderLeft = styled.div`
         margin-left: 20px;
         font-size: 18px;
     }
+
+    @media only screen and (max-width: 600px) {
+        > h4 {
+            font-size: 14px;
+        }
+        > h4 > .MuiSvgIcon-root {
+            font-size: 14px
+        }
+        > .MuiSvgIcon-root {
+            font-size: 14px;
+        }
+    }
 `
 
 const HeaderRight = styled.div`
@@ -117,10 +130,23 @@ const HeaderRight = styled.div`
         margin-right: 8px !important;
         font-size: 16px;
     }
+
+    @media only screen and (max-width: 600px) {
+        > p {
+            font-size: 10px
+        }
+
+        > p > .MuiSvgIcon-root {
+            font-size: 12px;
+        }
+    }
 `
 const ChatMessages = styled.div`
     /* height: 780px; */
     /* overflow-y: scroll; */
+
+    @media only screen and (max-width: 600px) {
+    }
 `;
 
 const ChatBottom = styled.div`
