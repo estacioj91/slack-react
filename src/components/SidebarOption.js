@@ -30,7 +30,7 @@ const SidebarOption = ({Icon, title, addChannelOption, id}) => {
     }
     useEffect(() => {
         channel.current?.addEventListener('click', function(e){
-            for(let i = 0; i < e.composedPath(); i++){
+            for(let i = 0; i < e.composedPath().length; i++){
                 if(e.composedPath()[i].id){
                     selectChannel(channel);
                     break;
