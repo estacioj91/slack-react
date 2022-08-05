@@ -34,7 +34,7 @@ function ChatInput({channelName, channelId, chatRef}) {
     }
 
     const handleKeypress = e => {
-        alert("key press", e.keyCode)
+        alert("key press", e, e.keyCode)
         if (e.keyCode === 13) {
             e.preventDefault();
             button?.current.click();
