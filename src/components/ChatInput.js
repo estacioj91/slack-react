@@ -33,22 +33,22 @@ function ChatInput({channelName, channelId, chatRef}) {
         inputRef.current.value = "";
     }
 
-    const handleKeypress = e => {
-        alert("key press", e, e.keyCode)
-        if (e.keyCode === 13) {
-            e.preventDefault();
+    const handleKeypress = event => {
+        if (event.key === 'Enter') {
+            console.log("entr pressed")
+            event.preventDefault();
             button?.current.click();
         }
     };
 
     return (
         <ChatInputContainer>
-            <div>
-                <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" onKeyPress={handleKeypress}/>
+            <form>
+                <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" onKeyDown={handleKeypress}/>
                 <Button ref={button} hidden type="submit" onClick={sendMessage}>
                     SEND
                 </Button>
-            </div>
+            </form>
         </ChatInputContainer>
     )
 }
@@ -58,7 +58,7 @@ export default ChatInput;
 const ChatInputContainer = styled.div`
     border-radius: 20px;
 
-    > div  {
+    > form  {
         position: relative;
         display: flex;
         justify-content: center;
