@@ -12,9 +12,8 @@ function ChatInput({channelName, channelId, chatRef}) {
     const button = useRef(null);
     const sendMessage = async (e) =>  {
         e.preventDefault();
-        console.log("submit")
         if(!channelId){ return false;}
-        
+        alert("send mesage");
         const date = new Date();
         const rand = Math.floor(Math.random() * 100000);
 
@@ -35,7 +34,7 @@ function ChatInput({channelName, channelId, chatRef}) {
     }
 
     const handleKeypress = e => {
-        console.log("keypress")
+        alert("key press", e.keyCode)
         if (e.keyCode === 13) {
             e.preventDefault();
             button?.current.click();
