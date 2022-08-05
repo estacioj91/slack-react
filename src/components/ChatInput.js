@@ -9,8 +9,10 @@ import { auth } from '../firebase';
 function ChatInput({channelName, channelId, chatRef}) {
     const [user, loading]= useAuthState(auth);
     const inputRef = useRef(null);
+    const button = useRef(null);
     const sendMessage = async (e) =>  {
         e.preventDefault();
+        console.log("submit")
         if(!channelId){ return false;}
         
         const date = new Date();
@@ -32,11 +34,19 @@ function ChatInput({channelName, channelId, chatRef}) {
         inputRef.current.value = "";
     }
 
+    const handleKeypress = e => {
+        console.log("keypress")
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            button?.current.click();
+        }
+    };
+
     return (
         <ChatInputContainer>
             <form>
-                <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" />
-                <Button hidden type="submit" onClick={sendMessage}>
+                <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" onKeyPress={handleKeypress}/>
+                <Button ref={button} hidden type="submit" onClick={sendMessage}>
                     SEND
                 </Button>
             </form>
