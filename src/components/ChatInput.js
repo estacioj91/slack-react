@@ -13,7 +13,6 @@ function ChatInput({channelName, channelId, chatRef}) {
     const sendMessage = async (e) =>  {
         e.preventDefault();
         if(!channelId){ return false;}
-        alert("send mesage");
         const date = new Date();
         const rand = Math.floor(Math.random() * 100000);
 
