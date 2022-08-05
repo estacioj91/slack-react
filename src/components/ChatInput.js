@@ -43,12 +43,12 @@ function ChatInput({channelName, channelId, chatRef}) {
 
     return (
         <ChatInputContainer>
-            <form>
+            <div>
                 <input ref={inputRef} placeholder={`Message ${channelName}`} type="text" onKeyPress={handleKeypress}/>
                 <Button ref={button} hidden type="submit" onClick={sendMessage}>
                     SEND
                 </Button>
-            </form>
+            </div>
         </ChatInputContainer>
     )
 }
@@ -58,7 +58,7 @@ export default ChatInput;
 const ChatInputContainer = styled.div`
     border-radius: 20px;
 
-    > form  {
+    > div  {
         position: relative;
         display: flex;
         justify-content: center;
